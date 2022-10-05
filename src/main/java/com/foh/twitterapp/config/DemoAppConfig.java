@@ -51,11 +51,11 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		return viewResolver;
 	}
 	
-	@Bean
-	public PasswordEncoder encoder() {
-	    return new BCryptPasswordEncoder();
-	}
-	
+//	@Bean
+//	public PasswordEncoder encoder() {
+//	    return new BCryptPasswordEncoder();
+//	}
+//	
 	@Bean
 	public DataSource myDataSource() {
 		

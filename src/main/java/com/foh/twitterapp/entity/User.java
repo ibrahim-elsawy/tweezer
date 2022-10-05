@@ -25,6 +25,10 @@ public class User {
 	@Column(name="enabled")
 	private int enabled=1;
 	
+	@OneToOne
+	@JoinColumn(name="username")
+	private Authorities authority;
+	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}

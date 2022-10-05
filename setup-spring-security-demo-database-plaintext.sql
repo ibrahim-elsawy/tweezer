@@ -23,8 +23,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` 
 VALUES 
-('sawy','ibrahimelsawy834@gmail.com','{noop}sawy4507',1),
-('zeinab','zeinabmohamed817@gmail.com','{noop}test123',1);
+('sawy','ibrahimelsawy834@gmail.com','{noop}sawy4507',1);
 
 --
 -- Table structure for table `authorities`
@@ -45,9 +44,7 @@ CREATE TABLE `authorities` (
 
 INSERT INTO `authorities` 
 VALUES 
-('sawy','ROLE_ADMIN'),
-('sawy','ROLE_USER'),
-('zeinab','ROLE_USER');
+('sawy','ROLE_ADMIN');
 
 
 
