@@ -13,12 +13,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -137,6 +140,26 @@ public class DemoAppConfig implements WebMvcConfigurer {
 
 		return txManager;
 	}	
+	
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+//    	registry.addMapping("/sentiment/**").allowedOrigins("http://localhost:8080");
+    }
+	
+	
+	
+//	@Bean
+//	JedisConnectionFactory jedisConnectionFactory() {
+//	    return new JedisConnectionFactory();
+//	}
+//
+//	@Bean
+//	public RedisTemplate<String, Object> redisTemplate() {
+//	    RedisTemplate<String, Object> template = new RedisTemplate<>();
+//	    template.setConnectionFactory(jedisConnectionFactory());
+//	    return template;
+//	}
 	
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

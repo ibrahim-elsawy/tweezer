@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Configuration
 @EnableWebSecurity
@@ -27,8 +29,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 		// use jdbc authentication ... oh yeah!!!
 
 		auth.jdbcAuthentication().dataSource(securityDataSource);
-//		.usersByUsernameQuery("select username, password from users where username=?")
-//		.authoritiesByUsernameQuery("select username, role from roles where user_id=?");
+//		.passwordEncoder(new BCryptPasswordEncoder());
+//		.usersByUsernameQuery("select username, password, enabled from users where username=?")
+//		.authoritiesByUsernameQuery("select user_id, authority from authorities where user_id=?");
 
 	}
 
@@ -43,18 +46,24 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 //				.loginPage("/showMyLoginPage")
 //				.loginProcessingUrl("/authenticateTheUser")
 //				.permitAll()
-//			.and()
-//			.logout().permitAll()
-//			.and()
-//			.exceptionHandling().accessDeniedPage("/access-denied");
+//			
+
 		http.authorizeRequests()
-		.anyRequest().authenticated()
+		.antMatchers("/sentiment").permitAll()
+		.antMatchers("/", "/home").hasAnyRole("USER", "ADMIN")
+		.antMatchers("/register","/processreg").anonymous()
+		.and()
+		.logout()
+		.permitAll()
 		.and()
 		.formLogin()
 		.loginPage("/login")
 		.loginProcessingUrl("/authLogin")
-		.permitAll();
-
+		.permitAll()
+		.and()
+		.exceptionHandling()
+		.accessDeniedPage("/access-denied");
+		
 	}
 }
 

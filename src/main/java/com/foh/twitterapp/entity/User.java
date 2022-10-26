@@ -2,9 +2,11 @@ package com.foh.twitterapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +14,10 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+
 	@Column(name="username")
 	private String username;
 	
@@ -25,21 +31,18 @@ public class User {
 	@Column(name="enabled")
 	private int enabled=1;
 	
-	@OneToOne
-	@JoinColumn(name="username")
-	private Authorities authority;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public User(String username, String email, String password) {
-		this.enabled = 1;
+//	public User(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 	}
-
 
 	public int getEnabled() {
 		return enabled;
@@ -72,10 +75,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+//
+//	public Authorities getAuthority() {
+//		return authority;
+//	}
+//
+//	public void setAuthority(Authorities authority) {
+//		this.authority = authority;
+//	}
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", email=" + email + ", password=" + password + ", enabled=" + enabled
+		return "User [ email=" + email + ", password=" + password + ", enabled=" + enabled
 				+ "]";
 	}
 

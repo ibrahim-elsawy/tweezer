@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.foh.twitterapp.dao.IUserDAO;
+import com.foh.twitterapp.entity.Authorities;
 import com.foh.twitterapp.entity.User;
 
 @Service
@@ -16,6 +17,7 @@ public class UserService implements IUserService {
 	private IUserDAO userDAO;
 	
 	@Override
+	@Transactional
 	public List<User> getUsers() {
 		// TODO Auto-generated method stub
 		return null;
@@ -23,22 +25,31 @@ public class UserService implements IUserService {
 
 	@Override
 	@Transactional
-	public void saveUser(User user) {
+	public void saveUser(User user, Authorities auth) {
 		// TODO Auto-generated method stub
-		userDAO.saveUser(user);
+		userDAO.saveUser(user, auth);
 
 	}
 
 	@Override
-	public User getUser(int id) {
+	@Transactional
+	public User getUser(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDAO.getUser(id);
 	}
 
 	@Override
-	public void deleteUser(int id) {
+	@Transactional
+	public void deleteUser(String id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	@Transactional
+	public boolean userExists(String username) {
+		// TODO Auto-generated method stub
+		return (getUser(username) != null) ? true : false;
 	}
 
 }
